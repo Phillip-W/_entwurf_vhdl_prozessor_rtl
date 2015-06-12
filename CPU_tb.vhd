@@ -1,0 +1,2 @@
+-- Hier wird von einem Memory File in die CPU eingelesen.
+-- Die CPU an sich kann nur mit bit_vector arbeiten.
