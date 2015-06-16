@@ -36,4 +36,4 @@ BEGIN
   n_out <= n_loc;
   re <= re_loc;
 
-END behav;
+END behav1;
