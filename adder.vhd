@@ -37,3 +37,23 @@ BEGIN
   re <= re_loc;
 
 END behav1;
+
+ARCHITECTURE behav2 OF adder IS
+  SIGNAL mode_vec: bit_vector(11 downto 0);
+  SIGNAL c_loc: bit_vector(11 downto 0);
+  SIGNAL re_and, re_xor, rec: bit_vector(11 downto 0);
+  SIGNAL re_loc: bit_vector(11 downto 0);
+  SIGNAL n_loc: bit;
+  
+BEGIN
+  mode_vec <= (OTHERS => mode);
+  re_and <= op1 AND (op2 XOR mode_vec);
+  re_xor <= op1 XOR (op2 XOR mode_vec);
+  rec <= (c_loc(10 downto 0) & (c_in XOR mode)) AND re_xor;
+  c_loc <= re_and OR rec;
+  c_out <= c_loc(11);
+  re <= (c_loc(10 downto 0) & (c_in XOR mode)) XOR re_xor;
+  
+  n_out <= c_loc(11) XOR re_xor(11);
+  o_out <= c_loc(11) XOR c_loc(10);
+END behav2;
