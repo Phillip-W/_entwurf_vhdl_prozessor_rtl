@@ -18,4 +18,41 @@ PACKAGE def_package IS
 	SUBTYPE flag_type IS
 		bit_vector(flag_width-1 downto 0);
 	
+	CONSTANT code_nop : opcode_type := B"00_0000"; --3.3.1.1
+	CONSTANT code_stop : opcode_type := B"00_0001"; --3.3.1.2
+	CONSTANT code_add : opcode_type := B"00_0010"; --3.3.1.3
+	CONSTANT code_addc : opcode_type := B"00_0011"; --3.3.1.4
+	CONSTANT code_sub : opcode_type := B"00_0100"; --3.3.1.5
+	CONSTANT code_subc : opcode_type := B"00_0101"; --3.3.1.6
+	CONSTANT code_not : opcode_type := B"00_0110"; --3.3.1.7
+	CONSTANT code_and : opcode_type := B"00_0111"; --3.3.1.8
+	CONSTANT code_or : opcode_type := B"00_1000"; --3.3.1.9
+	CONSTANT code_xor : opcode_type := B"00_1001"; --3.3.1.10
+	CONSTANT code_rea : opcode_type := B"00_1010"; --3.3.1.11
+	CONSTANT code_reo : opcode_type := B"00_1011"; --3.3.1.12
+	CONSTANT code_rex : opcode_type := B"00_1100"; --3.3.1.13
+	CONSTANT code_sll : opcode_type := B"00_1101"; --3.3.1.14
+	CONSTANT code_srl : opcode_type := B"00_1110"; --3.3.1.15
+	CONSTANT code_sra : opcode_type := B"00_1111"; --3.3.1.16
+	CONSTANT code_rol : opcode_type := B"01_0000"; --3.3.1.17
+	CONSTANT code_rolc : opcode_type := B"01_0001"; --3.3.1.18
+	CONSTANT code_ror : opcode_type := B"01_0010"; --3.3.1.19
+	CONSTANT code_rorc : opcode_type := B"01_0011"; --3.3.1.20
+	CONSTANT code_ldc : opcode_type := B"10_0000"; --3.3.1.21
+	CONSTANT code_ldd : opcode_type := B"10_0001"; --3.3.1.22
+	CONSTANT code_ldr : opcode_type := B"10_0010"; --3.3.1.23
+	CONSTANT code_std : opcode_type := B"10_0011"; --3.3.1.24
+	CONSTANT code_str : opcode_type := B"10_0100"; --3.3.1.25
+	CONSTANT code_in : opcode_type := B"10_0101"; --3.3.1.26
+	CONSTANT code_out : opcode_type := B"10_0110"; --3.3.1.27
+	CONSTANT code_jmp : opcode_type := B"11_0000"; --3.3.1.28
+	CONSTANT code_jz : opcode_type := B"11_0001"; --3.3.1.29
+	CONSTANT code_jc : opcode_type := B"11_0010"; --3.3.1.30
+	CONSTANT code_jn : opcode_type := B"11_0011"; --3.3.1.31
+	CONSTANT code_jo : opcode_type := B"11_0100"; --3.3.1.32
+	CONSTANT code_jnz : opcode_type := B"11_0101"; --3.3.1.33
+	CONSTANT code_jnc : opcode_type := B"11_0110"; --3.3.1.34
+	CONSTANT code_jnn : opcode_type := B"11_0111"; --3.3.1.35
+	CONSTANT code_jno : opcode_type := B"11_1000"; --3.3.1.36
+	
 END def_package;
