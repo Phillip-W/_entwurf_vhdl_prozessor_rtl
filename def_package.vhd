@@ -61,3 +61,51 @@ PACKAGE def_package IS
 	function REA (signal O1: data_type) return bit;
 	function REX (signal O1: data_type) return bit;
 END def_package;
+
+
+
+PACKAGE BODY def_package IS
+
+
+	function REO (signal O1: data_type) return bit is
+	variable ZW : data_type;
+	begin
+		ZW:= O1;
+		FOR I IN 0 TO data_width - 2 LOOP 
+     			 ZW(i + 1) := ZW(i) OR ZW(i + 1);
+  	  	END LOOP;
+	return O1(data_width -1);
+	end REO;
+
+
+	function REA (signal O1: data_type) return bit is
+	variable ZW : data_type;
+	begin
+		ZW:= O1;
+	FOR I IN 0 TO data_width - 2 LOOP 
+     			 ZW(i + 1) := ZW(i) AND ZW(i + 1);
+  	END LOOP;
+	return O1(data_width -1);
+	end REA;
+
+	function REX (signal O1: data_type) return bit is
+	variable ZW : data_type;
+	begin
+		ZW:= O1;
+		FOR I IN 0 TO data_width - 2 LOOP 
+     			 ZW(i + 1) := ZW(i) XOR ZW(i + 1);
+ 		END LOOP;
+	return O1(data_width -1);
+	end REX;
+
+	FUNCTION CheckZeroFlag(signal O1 : data_type) return bit is
+	begin
+	if (O1="000000000000")
+	then
+	return '1';
+	else
+	return '0';
+	end if;
+	end CheckZeroFlag;
+
+end def_package;
