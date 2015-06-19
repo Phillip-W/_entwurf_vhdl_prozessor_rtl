@@ -54,9 +54,7 @@ PACKAGE def_package IS
 	CONSTANT code_jnc : opcode_type := B"11_0110"; --3.3.1.34
 	CONSTANT code_jnn : opcode_type := B"11_0111"; --3.3.1.35
 	CONSTANT code_jno : opcode_type := B"11_1000"; --3.3.1.36
-	
-	
-	FUNCTION CheckZeroFlag(signal O1 : data_type) RETURN bit;
+
 	function REO (signal O1: data_type) return bit;
 	function REA (signal O1: data_type) return bit;
 	function REX (signal O1: data_type) return bit;
@@ -97,15 +95,5 @@ PACKAGE BODY def_package IS
  		END LOOP;
 	return O1(data_width -1);
 	end REX;
-
-	FUNCTION CheckZeroFlag(signal O1 : data_type) return bit is
-	begin
-	if (O1="000000000000")
-	then
-	return '1';
-	else
-	return '0';
-	end if;
-	end CheckZeroFlag;
 
 end def_package;
