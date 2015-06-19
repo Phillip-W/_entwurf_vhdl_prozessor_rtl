@@ -6,8 +6,6 @@ PACKAGE def_package IS
 
 	CONSTANT reg_addr_width : POSITIVE := 2; --2.1.2
 	CONSTANT addr_width : POSITIVE := 12; -- nicht Aendern
-	CONSTANT flag_width : POSITIVE := 4;
-	
-	-- Flag Vector: (Z,C,N,O)
+	CONSTANT flag_width : POSITIVE := 4;	-- Flag Vector: (Z,C,N,O)
 	
 END def_package;
