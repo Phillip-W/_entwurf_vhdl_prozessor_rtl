@@ -1,59 +1,46 @@
+USE work.def_package.all;
+
 ENTITY adder IS
   PORT(
-    SIGNAL mode: IN bit;                            -- ADD = 0 or SUB = 1
-    SIGNAL c_in: IN bit;                            -- bei ADDC = 0 sonst Carry weitergeben
-    SIGNAL op1, op2: IN bit_vector(11 downto 0);    -- Eingangsoperanten
-    SIGNAL c_out,n_out,o_out: OUT bit;              -- Flags
-    SIGNAL re: OUT bit_vector(11 downto 0)          -- Ergebnis
+    SIGNAL opcode: IN opcode_type;    -- ADD = 0 or SUB = 1
+    SIGNAL flags_in: IN flag_type;                 
+    SIGNAL op1, op2: IN data_type;    -- Eingangsoperanten
+    SIGNAL flags_out: OUT flag_type;            -- Flags
+    SIGNAL re: OUT data_type         -- Ergebnis
   );
 END adder;
 
-ARCHITECTURE behav1 OF adder IS
-  --SIGNAL op2_loc: bit_vector(11 downto 0);
+ARCHITECTURE behav OF adder IS
+  
+  SIGNAL mode_vec: data_type;
   SIGNAL c_loc: bit_vector(12 downto 0);
-  SIGNAL re_and, re_xor, rec: bit_vector(11 downto 0);
-  SIGNAL re_loc: bit_vector(11 downto 0);
+  SIGNAL re_and, re_xor, rec: data_type;
+  SIGNAL re_loc: data_type;
   SIGNAL n_loc: bit;
   
 BEGIN
-  PROCESS(mode, c_in, op1, op2)
+  
+  mode: PROCESS(opcode)
   BEGIN
-    c_loc <= (0 => c_in XOR mode, OTHERS => '0');
-    
-    FOR i IN 0 TO 11 LOOP
-      re_and(i) <= op1(i) AND (op2(i) XOR mode);
-      re_xor(i) <= op1(i) XOR (op2(i) XOR mode);
-      rec(i) <= re_xor(i) AND c_loc(i);
-      c_loc(i+1) <= re_and(i) OR c_loc(i);
-      re_loc(i) <= c_loc(i) XOR re_xor(i);
-    END LOOP;
-    
-    n_loc <= re_xor(11) XOR c_loc(12);
-  END PROCESS;
+    mode_vec <= (OTHERS => '0');
+    c_loc <= (OTHERS => '0');
+    IF opcode = code_addc THEN
+        c_loc <= (0 => '1');
+    ELSIF opcode = code_sub THEN
+        mode_vec <=(OTHERS => '1');
+    ELSIF opcode = code_subc THEN
+        mode_vec <=(OTHERS => '1');
+        c_loc <= (0 => '1');
+    END IF;
+  END PROCESS mode;
   
-  c_out <= c_loc(12);
-  o_out <= n_loc XOR re_loc(11);
-  n_out <= n_loc;
-  re <= re_loc;
-
-END behav1;
-
-ARCHITECTURE behav2 OF adder IS
-  SIGNAL mode_vec: bit_vector(11 downto 0);
-  SIGNAL c_loc: bit_vector(11 downto 0);
-  SIGNAL re_and, re_xor, rec: bit_vector(11 downto 0);
-  SIGNAL re_loc: bit_vector(11 downto 0);
-  SIGNAL n_loc: bit;
-  
-BEGIN
-  mode_vec <= (OTHERS => mode);
   re_and <= op1 AND (op2 XOR mode_vec);
   re_xor <= op1 XOR (op2 XOR mode_vec);
-  rec <= (c_loc(10 downto 0) & (c_in XOR mode)) AND re_xor;
-  c_loc <= re_and OR rec;
-  c_out <= c_loc(11);
-  re <= (c_loc(10 downto 0) & (c_in XOR mode)) XOR re_xor;
+  rec <= (c_loc(11 downto 1) & (c_loc(0) XOR mode_vec(0))) AND re_xor;
+  c_loc(12 downto 1) <= re_and OR rec;
+  flags_out(2) <= c_loc(12);
+  re <= (c_loc(11 downto 1) & (c_loc(0) XOR mode_vec(0))) XOR re_xor;
   
-  n_out <= c_loc(11) XOR re_xor(11);
-  o_out <= c_loc(11) XOR c_loc(10);
-END behav2;
+  flags_out(1) <= c_loc(12) XOR re_xor(11);
+  flags_out(0) <= c_loc(12) XOR c_loc(10);
+END behav;
