@@ -55,4 +55,9 @@ PACKAGE def_package IS
 	CONSTANT code_jnn : opcode_type := B"11_0111"; --3.3.1.35
 	CONSTANT code_jno : opcode_type := B"11_1000"; --3.3.1.36
 	
+	
+	FUNCTION CheckZeroFlag(signal O1 : data_type) RETURN bit;
+	function REO (signal O1: data_type) return bit;
+	function REA (signal O1: data_type) return bit;
+	function REX (signal O1: data_type) return bit;
 END def_package;
