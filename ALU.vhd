@@ -19,9 +19,9 @@ AD: entity work.adder(behav) port map (opcode=> Operation, Carry=> Carry, op1=> 
 
 LU: entity work.LogicUnit(RTL) port map(O1=> O1, O2=> O2, Operation=> Operation, Result=> LU_Res_out, FlagsOut=> LU_Flags_out);
 
-mux1: entity work.mux12_4x1(RTL) port map(select_input=> select_it, d_in_b=> AD_Res_out, d_in_c=> LU_Res_out, d_in_d=> SH_Res_out, d_in_a=> "000000000000", d_out=> Result);
+mux1: entity work.mux12_4x1(RTL_clk) port map(select_input=> select_it, d_in_b=> AD_Res_out, d_in_c=> LU_Res_out, d_in_d=> SH_Res_out, d_in_a=> "000000000000", d_out=> Result);
 
-mux2: entity work.mux4_4x1(RTL) port map(select_input=> select_it, d_in_b=> AD_Flags_out, d_in_c=> LU_Flags_out, d_in_d=> SH_Flags_out, d_in_a=> "0000", d_out=> Flags);
+mux2: entity work.mux4_4x1(RTL_clk) port map(select_input=> select_it, d_in_b=> AD_Flags_out, d_in_c=> LU_Flags_out, d_in_d=> SH_Flags_out, d_in_a=> "0000", d_out=> Flags);
 
 process(O1, O2, Carry, Operation)
 begin
