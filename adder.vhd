@@ -3,7 +3,7 @@ USE work.def_package.all;
 ENTITY adder IS
   PORT(
     SIGNAL opcode: IN opcode_type;    -- ADD = 0 or SUB = 1
-    SIGNAL flags_in: IN flag_type;                 
+    SIGNAL Carry: IN bit;                               
     SIGNAL op1, op2: IN data_type;    -- Eingangsoperanten
     SIGNAL flags_out: OUT flag_type;            -- Flags
     SIGNAL re: OUT data_type         -- Ergebnis
