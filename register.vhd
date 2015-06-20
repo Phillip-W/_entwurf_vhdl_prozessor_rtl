@@ -27,3 +27,20 @@ begin
 	end if;
 	end process;
 end RTL;
+
+
+architecture RTL2 of D_REG12RE is
+begin
+	process
+	begin 
+		wait until CLK = '1';
+		if RST = '0' then
+			Q_OUT <= B"0000_0000_0000";
+		else
+			if ENABLE = '1' then
+				Q_OUT <= D_IN;
+			end if;
+		end if;
+
+	end process;
+end RTL2;
