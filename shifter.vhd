@@ -10,7 +10,7 @@ END ENTITY;
 ARCHITECTURE shift of shifter IS
   Constant OPlength: Integer:= OP1'length-1;
   BEGIN
-    Process
+    Process(OPCode)
       Begin
         if OPCode = code_sll then     -- muss mir die einzelnen shifts noch anschauen
           -- if OP1(OP1'left) = '1' then
