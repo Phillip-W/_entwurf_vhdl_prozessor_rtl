@@ -15,9 +15,11 @@ begin
 
 
 
-AD: entity work.adder(behav) port map (opcode=> Operation, Carry=> Carry, op1=> O1, op2=> O2, flags_out=>AD_Flags_out, re=> AD_Res_out);
+--AD: entity work.adder(behav) port map (opcode=> Operation, Carry=> Carry, op1=> O1, op2=> O2, flags_out=>AD_Flags_out, re=> AD_Res_out);
 
 LU: entity work.LogicUnit(RTL) port map(O1=> O1, O2=> O2, Operation=> Operation, Result=> LU_Res_out, FlagsOut=> LU_Flags_out);
+
+SH: entity work.shifter(shift) port map(OPCode=> Operation, Carry=> Carry, Flagsout=> SH_Flags_out, OP1=>O1, OP2=> O2, result=> SH_Res_out);
 
 mux1: entity work.mux12_4x1(RTL_clk) port map(select_input=> select_it, d_in_b=> AD_Res_out, d_in_c=> LU_Res_out, d_in_d=> SH_Res_out, d_in_a=> "000000000000", d_out=> Result);
 
