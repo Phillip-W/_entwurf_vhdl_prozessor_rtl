@@ -1,7 +1,6 @@
 USE work.def_package.ALL;
 
 ENTITY reg_file IS -- geschrieben von Flo Maurer
-	generic (N: natural);
 	port ( 	clk, rst, enab: in bit;
 		SEL_in, SEL_out_A, SEL_out_B, SEL_out_C: in bit_vector (1 downto 0);
 		RF_IN: in bit_vector (data_width-1 downto 0);
