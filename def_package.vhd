@@ -18,6 +18,8 @@ PACKAGE def_package IS
 		bit_vector(data_width-1 downto 0);
 	SUBTYPE flag_type IS
 		bit_vector(flag_width-1 downto 0);
+	SUBTYPE state_type IS 
+		bit_vector (4 downto 0);
 	
 	CONSTANT code_nop : opcode_type := B"00_0000"; --3.3.1.1
 	CONSTANT code_stop : opcode_type := B"00_0001"; --3.3.1.2
@@ -55,6 +57,12 @@ PACKAGE def_package IS
 	CONSTANT code_jnc : opcode_type := B"11_0110"; --3.3.1.34
 	CONSTANT code_jnn : opcode_type := B"11_0111"; --3.3.1.35
 	CONSTANT code_jno : opcode_type := B"11_1000"; --3.3.1.36
+
+	CONSTANT s_if: state_type := "10000";
+	CONSTANT s_pfex: state_type := "01000";
+	CONSTANT s_io: state_type := "00100";
+	CONSTANT s_mem: state_type := "00010";
+	CONSTANT s_stop: state_type := "00001";
 
 	function REO (signal O1: data_type) return bit;
 	function REA (signal O1: data_type) return bit;
