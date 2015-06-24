@@ -2,7 +2,7 @@ USE work.def_package.ALL;
 -- geschrieben Flo Maurer (auf Basis des Verhaltensmodels von Lei)
 Entity shifter Is
   Port (OPCode: in opcode_type;
-        Carry: in bit;
+        Flagsin: in flag_type;
 	Flagsout: out flag_type;
         OP1, OP2: in data_type;
         result: out data_type);
@@ -32,7 +32,7 @@ ARCHITECTURE shift of shifter IS
           result(result'left-1 downto 0) <= OP1(OP1'left downto 1);
         elsif OPCode = code_rol OR OPCode = code_rolc then
 	  Flagsout(0)<= '0';
-          if Carry='1' then
+          if Flagsin(2)='1' then
 	    Flagsout(2)<=OP1(OP1'left);
             result(result'left downto 1) <= OP1(OP1'left-1 downto 0);
             result(result'right) <= '1' ;
@@ -43,7 +43,7 @@ ARCHITECTURE shift of shifter IS
           end if;
         elsif OPCODE = code_ror OR OPCode = code_RORC then
 	  Flagsout(0)<= '0';
-          if Carry='1' then
+          if Flagsin(2)='1' then
 	    Flagsout(2)<=OP1(OP1'right);
             result(result'left) <= '1';
             result(result'left-1 downto 0) <= OP1(OP1'left downto 1);
