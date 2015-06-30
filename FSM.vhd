@@ -5,7 +5,7 @@ PORT(
 cmd_calc, cmd_const, cmd_dir, cmd_reg, cmd_io, cmd_pc, cmd_jmp, cmd_stop, take_jmp, store: IN bit;
 dev_rdy, clk, rst: IN bit;
 instr_en, addr_en, pc_en, pc_mux, reg_en, fc_sel, d_in_mux, d_out_mux, w_en, io_type, io_en, aktiv: OUT bit;
-a_out_mux: OUT data_type
+a_out_mux: OUT bit_vector(1 downto 0)
 );
 END FSM;
 
