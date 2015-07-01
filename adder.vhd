@@ -16,7 +16,8 @@ ARCHITECTURE behav OF adder IS
   SIGNAL c_loc: bit_vector(11 downto 0);
   SIGNAL re_and, re_xor, re_c: data_type;
   SIGNAL re_loc: data_type;
-  SIGNAL n_loc: bit;
+  SIGNAL n_loc: bit;  -- für flags
+  SIGNAL loc_xor: bit;
   
 BEGIN
   mode: PROCESS(opcode) 
@@ -35,21 +36,23 @@ BEGIN
       re_c <= (c_loc(10 downto 0) & '0') AND re_xor;
     END IF;
   END PROCESS carry;
-  re_and <= op1 AND op2;
-  re_xor <= op1 XOR op2;
+  re_and <= op1 AND (op2 XOR mode_vec);
+  re_xor <= op1 XOR (op2 XOR mode_vec);
   c_loc <= re_and OR re_c;
-  flags_out(2) <= c_loc(11);
-  re_loc <= (c_loc(10 downto 0) & flags_in(3)) XOR re_xor;
-  no: PROCESS(re_loc)
+  resault: PROCESS (opcode)
   BEGIN
-    IF mode_vec(0) = '0' THEN
-      flags_out(3) <= flags_in(3);
-      flags_out(1) <= '0';
-      flags_out(0) <= re_loc(11);
+    IF opcode = code_addc OR opcode = code_subc THEN
+      re_loc <= (c_loc(10 downto 0) & flags_in(3)) XOR re_xor;
     ELSE
-      flags_out(3) <= flags_in(3);
-      flags_out(0) <= '0';
-      flags_out(1) <= re_loc(11);
+      re_loc <= (c_loc(10 downto 0) & '0') XOR re_xor;
     END IF;
-  END PROCESS no;
+  END PROCESS resault;
+  re <= re_loc;
+
+  loc_xor <= op1(11) XOR (op2(11) XOR mode_vec(11));
+  n_loc <= loc_xor XOR c_loc(11);
+  flags_out(2) <= c_loc(11);
+  flags_out(1) <= n_loc;
+  flags_out(0) <= n_loc XOR re_loc(11);
+
 END behav;
