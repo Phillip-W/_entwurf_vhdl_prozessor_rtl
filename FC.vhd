@@ -16,14 +16,14 @@ ARCHITECTURE behav OF flag_check IS
 BEGIN
   check: PROCESS(alu_res, d_in, fc_sel)
   BEGIN
-    flag_out <= flag_in(3 downto 1) & '0';
+    flag_out <= '0' & flag_in(2 downto 0);
     IF fc_sel = '0' THEN
       IF alu_res = zero THEN
-        flag_out(0) <= '1';
+        flag_out(3) <= '1';
       END IF;
     ELSE
       IF d_in = zero THEN
-        flag_out(0) <= '1';
+        flag_out(3) <= '1';
       END IF;
     END IF;
   END PROCESS check;
