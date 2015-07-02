@@ -2,9 +2,9 @@ USE work.def_package.all;
 
 ENTITY FSM IS
 PORT(
-cmd_calc, cmd_const, cmd_dir, cmd_reg, cmd_io, cmd_pc, cmd_jmp, cmd_stop, take_jmp, store: IN bit;
+take_jmp, store, cmd_calc, cmd_const, cmd_dir, cmd_reg, cmd_io, cmd_pc, cmd_jmp, cmd_stop : IN bit;
 dev_rdy, clk, rst: IN bit;
-instr_en, addr_en, pc_en, pc_mux, reg_en, fc_sel, d_in_mux, d_out_mux, w_en, io_type, io_en, aktiv: OUT bit;
+instr_en, addr_en, pc_en, pc_mux, reg_en, fc_sel, d_in_mux, d_out_mux, w_en, io_type, io_en: OUT bit; --aktiv mal auskommentiert
 a_out_mux: OUT bit_vector(1 downto 0)
 );
 END FSM;
@@ -61,6 +61,6 @@ d_out_mux <= cmd_pc;
 w_en <= (state(3) AND cmd_reg AND store) OR (state(1) AND store);
 io_type <= (state(3) AND cmd_reg AND store) OR (state(1) AND store);
 io_en <= state(2) AND dev_rdy;
-aktiv <= NOT state(0);
+--aktiv <= NOT state(0);
 
 END behav;
