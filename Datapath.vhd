@@ -24,7 +24,7 @@ signal flags_AL_FC: flag_type;
 signal O1_RF_AL: data_type;
 begin
 
---FC: entity work.flag_check(behav) port map (
+FC: entity work.flag_check(behav) port map (FC_SEL, flags_AL_FC, result_AL_FC, D_IN, result_FC_RF);
 
 FL: entity work.flags(behav) port map ( CLK, RST, '1', flags_FC_FL, FLAGS);
 
