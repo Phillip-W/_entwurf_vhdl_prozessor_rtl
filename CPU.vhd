@@ -8,12 +8,12 @@ port (
 	
 -- command and address in, flags
 	D_IN		: in data_type;
-	A_IN_2		: buffer data_type;	
+	A_IN_2		: out data_type;	-- warum buffer?
 
 -- memory and other external interface
 
 	DEV_RDY		: in bit;
-	A_OUT		: buffer data_type;
+	A_OUT		: out data_type;	-- warum buffer? zwischensignal
 	W_EN, D_IN_MUX	: out bit;
 	IO_TYPE, IO_EN	: out bit;
 	
@@ -47,12 +47,14 @@ signal PC_IN: addr_type;
 signal PC: addr_type;
 signal signal_A_IN_2: data_type;
 signal A_OUT_MUX: bit_vector (1 downto 0);
-signal A_IN_1: data_type;
+signal A_IN_1, Signal_A_out: data_type;
 signal FLAGS: flag_type;
 signal INC_OUT: addr_type;
 
 begin 
 
+A_IN_2 <= signal_A_IN_2;		--um buffer zu vermeiden
+A_OUT <= signal_A_out; 			--um buffer zu vermeiden
 
 ID: entity work.ID(RTL) port map (INSTR, FLAGS, OP, SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C, CTRL(0), CTRL(1), CTRL(2), CTRL(3), CTRL(4), CTRL(5), CTRL(6), CTRL(7),CTRL(8), CTRL(9));
 
@@ -67,15 +69,15 @@ AD: entity work.addr(behav) port map (CLK, RST, ADDR_EN, D_IN, ADDR);
 
 PCO: entity work.PC(behav) port map (CLK, RST, PC_EN, PC_IN, PC);
 
-INC: entity work.INC(behav) port map (A_OUT, INC_OUT);
+INC: entity work.INC(behav) port map (Signal_A_OUT, INC_OUT);
 
 M1: entity work.mux12_2x1(RTL_1) port map (D_OUT_MUX ,D_IN, PC, D_OUT); --muss noch korrigiert werden, nicht sicher ob die Reihenfolge von D_IN und PC stimmt
 
 M2: entity work.mux12_2x1(RTL_1) port map (PC_MUX, signal_A_IN_2, INC_OUT, PC_IN);-- auch nicht sicher, wo welches signals sein muss 
 
-M3: entity work.mux12_4x1(RTL_1) port map ( A_OUT_MUX, "000000000000",A_IN_1, ADDR, PC,  A_OUT);-- muss noch korrigiert werden
+M3: entity work.mux12_4x1(RTL_1) port map ( A_OUT_MUX, A_IN_1, ADDR, PC, open, Signal_A_OUT);-- muss noch korrigiert werden
 
-DP: entity work.datapath(RTL) port map (CLK, RST, A_IN_2, A_IN_1, FLAGS, D_OUT, FC_SEL, REG_EN, OP,
+DP: entity work.datapath(RTL) port map (CLK, RST, Signal_A_IN_2, A_IN_1, FLAGS, D_OUT, FC_SEL, REG_EN, OP,
 			 SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C);
 
 
