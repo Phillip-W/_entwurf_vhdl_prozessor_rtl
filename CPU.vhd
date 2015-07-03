@@ -69,11 +69,11 @@ PCO: entity work.PC(behav) port map (CLK, RST, PC_EN, PC_IN, PC);
 
 INC: entity work.INC(behav) port map (A_OUT, INC_OUT);
 
-M1: entity work.mux12_2x1(RTL_clk) port map (D_OUT_MUX ,D_IN, PC, D_OUT); --muss noch korrigiert werden, nicht sicher ob die Reihenfolge von D_IN und PC stimmt
+M1: entity work.mux12_2x1(RTL_1) port map (D_OUT_MUX ,D_IN, PC, D_OUT); --muss noch korrigiert werden, nicht sicher ob die Reihenfolge von D_IN und PC stimmt
 
-M2: entity work.mux12_2x1(RTL_clk) port map (PC_MUX, signal_A_IN_2, INC_OUT, PC_IN);-- auch nicht sicher, wo welches signals sein muss 
+M2: entity work.mux12_2x1(RTL_1) port map (PC_MUX, signal_A_IN_2, INC_OUT, PC_IN);-- auch nicht sicher, wo welches signals sein muss 
 
-M3: entity work.mux12_4x1(RTL_clk) port map ( A_OUT_MUX, "000000000000",A_IN_1, ADDR, PC,  A_OUT);-- muss noch korrigiert werden
+M3: entity work.mux12_4x1(RTL_1) port map ( A_OUT_MUX, "000000000000",A_IN_1, ADDR, PC,  A_OUT);-- muss noch korrigiert werden
 
 DP: entity work.datapath(RTL) port map (CLK, RST, A_IN_2, A_IN_1, FLAGS, D_OUT, FC_SEL, REG_EN, OP,
 			 SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C);
