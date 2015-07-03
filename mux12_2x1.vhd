@@ -11,7 +11,7 @@ begin
               d_in_b when '0';
 end RTL;
 
-architecture RTL_clk of mux12_2x1 is	-- als Process, falls man es takten muss
+architecture RTL_1 of mux12_2x1 is
 begin
 	process (d_in_a, d_in_b)
 	begin
