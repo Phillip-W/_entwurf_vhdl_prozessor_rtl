@@ -1,5 +1,3 @@
-
-
 use work.def_package.all;
 -- FLo Maurer
 entity reg is -- variable Datenwortbreite (Grundlage: Patrick Ulrich) 
