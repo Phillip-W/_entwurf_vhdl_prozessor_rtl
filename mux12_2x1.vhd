@@ -19,4 +19,4 @@ begin
 			elsif select_input 	= '0' then d_out <= d_in_b;
 		end if;
 	end process;
-end RTL_clk;
+end RTL_1;
