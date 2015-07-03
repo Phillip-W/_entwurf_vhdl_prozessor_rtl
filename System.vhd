@@ -1,5 +1,5 @@
 -- hier steht unser System, an welches noch IO, Mem und clk, rst hinkommen (auch die TB)
-
+use work.def_package.all;
 ENtity System IS
   port (  rst, clk, dev_ready_in, dev_ready_out: in bit;
           in_dat_IO, in_dat_mem: in data_type;
@@ -40,7 +40,7 @@ Architecture behav of System IS
   
   Begin
   
-  mux_data: mux port map (intern_IO_type, dev_ready_in, dev_ready_out, open, open, intern_dev_ready);
+  mux_data: mux port map (intern_IO_type, dev_ready_in, dev_ready_out, open, open, intern_dev_ready); -- "bit-mux" nötig
   mux_sig: mux port map (intern_D_IN_MUX, in_dat_IO, in_dat_mem, open, open, intern_D_in);
   -- hier fehlt noch die CPU (mach ich am Nachmittag aoder so)
   
