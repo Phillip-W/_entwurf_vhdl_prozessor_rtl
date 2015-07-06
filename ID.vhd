@@ -60,3 +60,4 @@ end case;
 end process;
 
 end case_driven_with_default_assignment;
+

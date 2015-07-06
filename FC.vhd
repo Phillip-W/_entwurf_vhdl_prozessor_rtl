@@ -6,8 +6,8 @@ ENTITY flag_check IS
     SIGNAL flag_in: IN flag_type;
     SIGNAL alu_res: IN data_type;
     SIGNAL d_in: IN data_type;
-    SIGNAL flag_out: OUT flag_type
-    
+    SIGNAL flag_out: OUT flag_type;
+    RF_IN : out data_type    
   );
 END flag_check;
 
@@ -21,10 +21,12 @@ BEGIN
       IF alu_res = zero THEN
         flag_out(3) <= '1';
       END IF;
+      RF_IN <= alu_res;
     ELSE
       IF d_in = zero THEN
-        flag_out(3) <= '1';
+        flag_out(3) <= '1';        
       END IF;
+      RF_IN <= d_in;
     END IF;
   END PROCESS check;
 END behav;
