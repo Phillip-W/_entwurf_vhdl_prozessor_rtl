@@ -24,13 +24,13 @@ signal flags_AL_FC: flag_type;
 signal O1_RF_AL: data_type;
 begin
 
-FC: entity work.flag_check(behav) port map (FC_SEL, flags_AL_FC, result_AL_FC, D_IN, result_FC_RF);
+FC: entity work.flag_check(behav) port map (FC_SEL, flags_AL_FC, result_AL_FC, D_IN, flags_FC_FL, Result_FC_RF);
 
-FL: entity work.flags(behav) port map ( CLK, RST, '1', flags_FC_FL, FLAGS);
+FL: entity work.flags(behav) port map ( CLK, RST, REG_EN, flags_FC_FL, FLAGS);
 
 AL: entity work.ALU(RTL) port map ( O1_RF_AL, D_OUT_2, flags_FL_AL, OP, result_AL_FC, flags_AL_FC);
 
-RF: entity work.reg_file(behav) port map ( CLK, RST, '1', SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C, result_FC_RF, O1_RF_AL, D_OUT_1, D_OUT_2);
+RF: entity work.reg_file(behav) port map ( CLK, RST, REG_EN, SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C, result_FC_RF, O1_RF_AL, D_OUT_1, D_OUT_2);
 
 
 end RTL;
