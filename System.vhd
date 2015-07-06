@@ -71,4 +71,3 @@ Architecture behav of System IS
 	IO_TYPE=> IO_type, IO_EN	=> IO_en,
 	ACTVE	=>active	);   
 END Architecture;
-
