@@ -1,5 +1,5 @@
-use work.def_package.all;
 -- FLo Maurer
+use work.def_package.all;
 entity reg is -- variable Datenwortbreite (Grundlage: Patrick Ulrich) 
 	generic (N: natural);
 	port(
@@ -27,6 +27,7 @@ begin
 	end process;
 end RTL;
 
+use work.def_package.all;
 -- Patrick Ulrich
 entity D_REG12RE is
 	port(
@@ -70,3 +71,4 @@ begin
 
 	end process;
 end RTL2;
+
