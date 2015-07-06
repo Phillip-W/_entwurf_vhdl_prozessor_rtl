@@ -2,10 +2,9 @@
 use work.def_package.all;
 ENtity System IS
   port (  rst, clk, dev_ready_in, dev_ready_out: in bit;
-          in_dat_IO, in_dat_mem: in data_type;
-          active, IO_type, IO_en, w_en: out bit; -- IO_type und IO_en sind sowohl an Input device, als auch am output device anzulegen
-          A_IN_2: out addr_type;
-          A_out_mem: out addr_type);
+          in_dat_IO: in data_type;
+          active, IO_type, IO_en: out bit); -- IO_type und IO_en sind sowohl an Input device, als auch am output device anzulegen
+          
 END Entity;
 
 Architecture behav of System IS
@@ -42,11 +41,23 @@ Architecture behav of System IS
           d_out                             :out bit);
   END component;
   
-  Signal intern_IO_type, intern_dev_ready, intern_D_IN_MUX: bit;
-  Signal intern_D_in: data_type;
+  component mem is
+    port (addr: in bit_vector(addr_width-1 downto 0);
+        d_in: in bit_vector(data_width-1 downto 0);
+        w_en, rst, clk: in bit;
+        d_out: out bit_vector(data_width-1 downto 0));
+  END component;
+  
+  Signal intern_IO_type, intern_dev_ready, w_en, intern_D_IN_MUX: bit;
+  Signal intern_D_in, in_dat_mem: data_type;
+  Signal A_out_mem: addr_type;
+  Signal A_IN_2: data_type;
   
   Begin
-  
+  memory: mem port map (addr => A_out_mem,
+                        d_in => a_in_2,
+                        w_en => w_en, rst=>rst, clk=> clk,
+                        d_out => in_dat_mem);
   mux_sig: muxsig  port map (intern_IO_type, dev_ready_in, dev_ready_out, intern_dev_ready); 
   mux_data: muxdata port map (intern_D_IN_MUX, in_dat_IO, in_dat_mem, intern_D_in);
   UPC: CPU port map (
