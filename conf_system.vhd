@@ -9,6 +9,8 @@ Configuration conf of System is
     for UPC: CPU
       use entity work.CPU(RTL);
     END FOR;
+    for memory: mem
+      use entity work.Memory(behav);
+    END FOR;
   End for;
 End configuration;
-
