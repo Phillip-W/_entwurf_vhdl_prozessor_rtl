@@ -20,6 +20,8 @@ PACKAGE def_package IS
 		bit_vector(flag_width-1 downto 0);
 	SUBTYPE state_type IS 
 		bit_vector (4 downto 0);
+	SUBTYPE instruction_type IS     -- keine AHnung, warum Patrick das in der ID neu eingefÃ¼hrt hat. Lass mas so
+	  data_type;
 	
 	CONSTANT code_nop : opcode_type := B"00_0000"; --3.3.1.1
 	CONSTANT code_stop : opcode_type := B"00_0001"; --3.3.1.2
@@ -106,3 +108,4 @@ PACKAGE BODY def_package IS
 	end REX;
 
 end def_package;
+
