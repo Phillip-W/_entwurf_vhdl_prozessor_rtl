@@ -5,7 +5,6 @@ PACKAGE CPU_tb_pac IS
   TYPE mem_type IS -- unser "Speicher" (Array)
 	ARRAY(0 to 2**addr_width - 1) OF data_type;
 	
-	CONSTANT isBit: integer := 0;
 	CONSTANT isInt: integer := 1;
 	CONSTANT isChar: integer := 2;
 	CONSTANT isMinus: integer := 3;
@@ -14,6 +13,7 @@ PACKAGE CPU_tb_pac IS
   PROCEDURE isWhitespace(VARIABLE read_line: IN line; CONSTANT start: IN integer; VARIABLE space: OUT integer);
   
   FUNCTION objType(CONSTANT input: IN character) RETURN integer;
+  
 END CPU_tb_pac;
 
 PACKAGE BODY CPU_tb_pac IS
@@ -22,7 +22,7 @@ PACKAGE BODY CPU_tb_pac IS
   VARIABLE cnt: integer := start;
   BEGIN
     do: WHILE cnt < read_line'length LOOP
-      EXIT do WHEN read_line(cnt) =' ' ;
+      EXIT WHEN read_line(cnt) =' ' ;
       cnt := cnt + 1;
     END LOOP;
     space := cnt;
@@ -32,9 +32,9 @@ PACKAGE BODY CPU_tb_pac IS
   BEGIN
     CASE input IS
       WHEN '0' =>
-        RETURN isBit;
+        RETURN isInt;
       WHEN '1' =>
-        RETURN isBit;
+        RETURN isInt;
       WHEN '2' =>
         RETURN isInt;
       WHEN '3' =>
