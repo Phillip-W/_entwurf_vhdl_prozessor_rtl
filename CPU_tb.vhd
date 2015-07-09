@@ -28,16 +28,18 @@ ARCHITECTURE simul OF CPU_TB IS
   
   COMPONENT InputDevice IS
     PORT( 
-      rst, clk, enab, rdy: IN bit;
+      rst, clk, enab: IN bit;
       d_in: IN data_type;
+      rdy: OUT bit;
       d_out: OUT data_type
     );
   END COMPONENT;
   
   COMPONENT OutputDevice IS
     PORT( 
-      rst, clk, enab, rdy: IN bit;
+      rst, clk, enab: IN bit;
       d_in: IN data_type;
+      rdy: OUT bit;
       d_out: OUT data_type
     );
   END COMPONENT;
