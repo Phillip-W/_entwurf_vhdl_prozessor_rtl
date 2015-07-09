@@ -30,6 +30,7 @@ ARCHITECTURE simul OF CPU_TB IS
     PORT( 
       rst, clk, enab: IN bit;
       d_in: IN data_type;
+      rdy: OUT bit;
       d_out: OUT data_type
     );
   END COMPONENT;
@@ -38,6 +39,7 @@ ARCHITECTURE simul OF CPU_TB IS
     PORT( 
       rst, clk, enab: IN bit;
       d_in: IN data_type;
+      rdy: OUT bit;
       d_out: OUT data_type
     );
   END COMPONENT;
@@ -88,6 +90,7 @@ BEGIN
     rst => resAll,
     clk => clkTemp,
     enab => ioEn,
+    rdy => inDevRdy,
     d_in => inputData,
     d_out => inDevData
   );
@@ -96,6 +99,7 @@ BEGIN
     rst => resAll,
     clk => clkTemp,
     enab => ioEn,
+    rdy => outDevRdy,
     d_in => dOut,
     d_out => outputData
   );
