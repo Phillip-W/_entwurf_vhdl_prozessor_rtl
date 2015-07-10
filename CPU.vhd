@@ -61,7 +61,7 @@ ID: entity work.ID(case_driven_with_default_assignment) port map (INSTR, FLAGS, 
 
 FS: entity work.FSM(behav) port map (CTRL(0), CTRL(1), CTRL(2), CTRL(3), CTRL(4), CTRL(5), CTRL(6),
 			 CTRL(7), CTRL(8), CTRL(9), DEV_RDY, CLK, RST, INSTR_EN, ADDR_EN, PC_EN, 
-			PC_MUX, REG_EN, FC_SEL, D_IN_MUX, D_OUT_MUX, W_EN, IO_TYPE, IO_EN, A_OUT_MUX);
+			PC_MUX, REG_EN, FC_SEL, D_IN_MUX, D_OUT_MUX, W_EN, IO_TYPE, IO_EN, A_OUT_MUX, ACTVE);
 
 INS: entity work.instr(behav) port map (CLK, RST, INSTR_EN, D_IN, INSTR);
 

@@ -1,7 +1,7 @@
 PACKAGE def_package IS
 
 	CONSTANT data_width : POSITIVE := 12; --1.1.1
-	CONSTANT addr_width : POSITIVE := 12; --1.1.2
+	CONSTANT addr_width : natural := 12; --1.1.2
 	CONSTANT opcode_width : POSITIVE := 6; --3.1.1
 --	constant pc_width: Positiv:= addr_width; -- 2.1.3.1
 
@@ -108,4 +108,3 @@ PACKAGE BODY def_package IS
 	end REX;
 
 end def_package;
-
