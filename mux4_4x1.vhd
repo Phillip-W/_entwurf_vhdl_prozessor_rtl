@@ -13,6 +13,15 @@ begin
               d_in_a when others;
 end RTL;
 
+architecture RTL_clk of mux4_4x1 is	
+begin
+  with select_input select
+    d_out <=  d_in_d when "11",
+              d_in_c when "10",
+              d_in_b when "01",
+              d_in_a when others;
+end RTL_clk;
+
 Entity muxN_4x1 is
 generic (N: natural);
   port (  select_input                    :in bit_vector  (1 downto 0);
