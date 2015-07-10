@@ -25,7 +25,6 @@ ARCHITECTURE behav OF reg_file IS
           		d_out                           :out bit_vector (N-1 downto 0));
 	end component;
 	component demux1_1x4 is
-  		generic (N: natural);
   		port (  select_input                        :in bit_vector  (1 downto 0);
           		d_in                                :in bit;
           		d_out_a, d_out_b, d_out_c, d_out_d  :out bit);
@@ -59,6 +58,6 @@ begin
 	reg4: reg 	generic map (N=>data_width)
 			port map (D_IN => RF_IN ,RST => rst, Enable => en_d, clk => clk, Q_OUT => d_out_d);
 
-	demux_enab: demux1_1x4	generic map (N=>1)
+	demux_enab: demux1_1x4	
 			port map (select_input => SEL_IN, d_in => enab, d_out_a => en_a, d_out_b => en_b, d_out_c => en_c, d_out_d => en_d);
 END behav;
