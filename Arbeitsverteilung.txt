@@ -1,1 +1,14 @@
+Flo:  - Memory
+      - Mux, Demux
+      - Assemblerinterpreter (benutzbar)
+      - Registerfile, Flags
+      - Shifter
+      - INC, PC, Instr
+      - System.vhd (CPU mit den beiden äußersten MUX verbunden)
+      - manche "Signalverbindungen" geprüft/ verbessert
+      
+Patrick:  -
+          -
 
+Phillip:  -
+          -
