@@ -63,7 +63,7 @@ case operation is
 	when code_rolc=> select_it<= "11";
 	when code_ror=> select_it<= "11";
 	when code_rorc=> select_it<= "11";
-	when others => report "No valid opcode ALU" severity warning;
+	when others => select_it <= "00"; report "No valid opcode ALU" severity warning;
 end case;
 end process;
 
