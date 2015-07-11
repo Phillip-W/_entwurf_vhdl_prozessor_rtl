@@ -10,7 +10,7 @@ Configuration conf of System is
       use entity work.CPU(RTL);
     END FOR;
     for memory: mem
-      use entity work.Memory(behav);
+      use entity work.Memory_S(behav);
     END FOR;
   End for;
 End configuration;
