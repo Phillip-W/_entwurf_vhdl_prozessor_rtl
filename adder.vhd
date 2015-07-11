@@ -51,6 +51,7 @@ BEGIN
 
   loc_xor <= op1(11) XOR (op2(11) XOR mode_vec(11));
   n_loc <= loc_xor XOR c_loc(11);
+  flags_out(3) <= flags_in(3);
   flags_out(2) <= c_loc(11);
   flags_out(1) <= n_loc;
   flags_out(0) <= n_loc XOR re_loc(11);
