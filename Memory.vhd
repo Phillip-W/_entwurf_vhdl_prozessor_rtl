@@ -44,7 +44,7 @@ USE work.def_package.ALL;
 entity Memory_S is -- für System.vhd
   port (addr: in bit_vector(addr_width-1 downto 0); 
         d_in: in bit_vector(data_width-1 downto 0);
-        w_en, rst, clk, clk_init: in bit;
+        w_en, rst, clk: in bit;
         d_out: out bit_vector(data_width-1 downto 0));
 end entity;
 
@@ -54,7 +54,7 @@ Architecture behav of Memory_S is
   Signal mem: mem_type;
   
   Begin
-    process(clk, clk_init)
+    process(clk)
     Begin
       if clk='1' and clk'event then
         if rst='1' then
