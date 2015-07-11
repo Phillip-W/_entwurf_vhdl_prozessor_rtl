@@ -4,8 +4,8 @@ Flo:  - Memory
       - Registerfile, Flags
       - Shifter
       - INC, PC, Instr
+      - gesamte Verbindungsstruktur geprüft und korrigiert
       - System.vhd (CPU mit den beiden äußersten MUX verbunden)
-      - manche "Signalverbindungen" geprüft/ verbessert
       
 Patrick:  -
           -
