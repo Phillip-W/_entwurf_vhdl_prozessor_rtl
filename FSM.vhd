@@ -11,7 +11,7 @@ END FSM;
 
 ARCHITECTURE behav OF FSM IS
 
-SIGNAL state: state_type := "00000";
+SIGNAL state: state_type := "00000"; -- (IF, PF/EX, IO, Mem, Stop) 
 
 BEGIN
 nextstate: PROCESS(clk, rst)
