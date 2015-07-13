@@ -1,3 +1,4 @@
+
 use work.def_package.all;
 
 entity LogicUnit is
@@ -6,10 +7,7 @@ entity LogicUnit is
 		O2 : in data_type;
 		Operation : in opcode_type;
 		Result : out data_type;
-		FZero: out bit;
-		FCarry: out bit;
-		FOverflow: out bit;
-		FNegative: out bit
+		FlagsOut: out flag_type
 	);
 end LogicUnit;
 
@@ -28,9 +26,11 @@ when code_reo => Result(0)<= REO(O1);
 when code_rex => Result(0)<= REX(O1);
 when others =>
 end case;
-
 end process;
-FCarry<= '0';
-FOverflow<='0';
-FNegative<= '0';
+
+FlagsOut(0)<= '0';
+FlagsOut(1)<= '0';
+FlagsOut(2)<='0';
+FlagsOut(3)<= '0';
 end RTL;
+		

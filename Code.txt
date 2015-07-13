@@ -1,0 +1,6 @@
+ADD 0 1 2
+LDC 0 2
+LDC 1 4
+ADD 0 1 2
+SUB 1 0 3 
+STOP

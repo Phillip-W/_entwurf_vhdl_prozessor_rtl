@@ -1,0 +1,17 @@
+Flo:  - Memory
+      - Mux, Demux
+      - Assemblerinterpreter (benutzbar)
+      - Registerfile, Flags
+      - Shifter
+      - INC, PC, Instr
+      - gesamte Verbindungsstruktur geprüft und korrigiert
+      - System.vhd (CPU mit den beiden äußersten MUX verbunden)
+      
+Patrick:  -
+          -
+
+Phillip:  -FC
+          -FSM
+          -IO Devices
+          -Adder
+          -CPU_tb 1. Version
