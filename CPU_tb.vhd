@@ -52,11 +52,9 @@ ARCHITECTURE simul OF CPU_TB IS
         d_out: out bit_vector(data_width-1 downto 0));
   END COMPONENT;
   
-  FILE codeFile : Text IS IN "code.txt";
-  
   SIGNAL inputData, outputData: data_type; -- nur Loc in TB
   
-  SIGNAL clk_init_tmp, clkTemp, resTemp, resCpu, resAll: bit;
+  SIGNAL clk_init_tmp, clkTemp, resTemp, resCpu, resAll: bit:='1';
   SIGNAL dInCpu, dInMem, dInMem_init, dFile: data_type; -- data In signale
   SIGNAL dOutMem, dOutCpu, dOut: data_type; -- data Out Signale
   SIGNAL inDevRdy, outDevRdy, devRdy: bit; -- für IO Mux, IO dev rdy gesetzt wenn Input vorhanden/Output Clear
@@ -118,29 +116,17 @@ BEGIN
   
   resTemp <= resAll OR resCpu; -- cpu nach memory initialisierung neustartbar mit res cpu <= 1
   
-  IOrdyMux: PROCESS(ioType)
-  BEGIN
-    IF ioType = '0' THEN
-      devRdy <= inDevRdy;
-    ELSE
-      devRdy <= outDevRdy;
-    END IF;
-  END PROCESS IOrdyMux;
+  -- IOrdyMux
+  with ioType select
+    devRdy <= inDevRdy when '0',
+              outDevRdy when others;
   
-  clock: PROCESS
-  BEGIN
-    wait for 50 us;
-    clkTemp <= NOT clkTemp;
-  END PROCESS clock;
+  clkTemp <= NOT clkTemp after 50 ns when act = '1' else '0';
   
-  dataInMux: PROCESS(dInMux)
-  BEGIN
-    IF dInMux = '0' THEN
-      dInCpu <= inDevData;
-    ELSE
-      dInCpu <= dOutMem;
-    END IF;
-  END PROCESS dataInMux;
+  -- dataInMux
+  with dInMux select
+    dInCpu <= inDevData when '1',
+              dOutMem when others;
   
   write_reset: PROCESS
   Variable Parm: BOOLEAN:=FALSE; -- gibt an, ob Parameter erwartet werden  
@@ -149,21 +135,15 @@ BEGIN
   BEGIN
     
     init_memory(Parm, OPC, Memoryfile, Memory_array); -- Speicher mit init_memory initialisieren
-    resAll <= '0';
     for i in 0 to 2**addr_width - 1 loop
       clk_init_tmp <= '0'; 
       aMem_init <= bit_vector(to_unsigned(i,addr_width));
       dInMem_init <= Memory_array(i);
       wEN_init<= '1'; wait for 0 ns;
       clk_init_tmp <= '1'; wait for 0 ns;
+      resCPU <= '0'; wait for 0 ns; resCPU <= '1';
     END loop;
-
-    
-    WAIT FOR 50 ns;
-    resCpu <= '1';
-    WAIT FOR 50 ns;
-    resCpu <= '0';
-    WAIT;
+    wait;
   END PROCESS;
   
   memAddr: PROCESS(aOut, aWrite) BEGIN
