@@ -10,5 +10,8 @@ Flo:  - Memory
 Patrick:  -
           -
 
-Phillip:  -
-          -
+Phillip:  -FC
+          -FSM
+          -IO Devices
+          -Adder
+          -CPU_tb 1. Version
