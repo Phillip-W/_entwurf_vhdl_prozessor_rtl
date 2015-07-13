@@ -75,7 +75,7 @@ M1: entity work.mux12_2x1(RTL_1) port map (D_OUT_MUX, PC ,D_IN, D_OUT);
 
 M2: entity work.mux12_2x1(RTL_1) port map (PC_MUX, signal_A_IN_2, INC_OUT, PC_IN);
 
-M3: entity work.mux12_4x1(RTL_clk) port map ( select_input=> A_OUT_MUX, d_in_a=>A_IN_1, d_in_b=>ADDR, d_in_c=>PC, d_in_d=>(others=>'0'), d_out=>Signal_A_OUT); -- müsste Stimmen
+M3: entity work.mux12_4x1(RTL_clk) port map ( select_input=> A_OUT_MUX, d_in_c=>A_IN_1, d_in_b=>ADDR, d_in_a=>PC, d_in_d=>(others=>'0'), d_out=>Signal_A_OUT); -- müsste Stimmen
 
 DP: entity work.datapath(RTL) port map (CLK, RST, Signal_A_IN_2, A_IN_1, FLAGS, D_OUT, FC_SEL, REG_EN, OP,
 			 SEL_IN, SEL_OUT_A, SEL_OUT_B, SEL_OUT_C);
