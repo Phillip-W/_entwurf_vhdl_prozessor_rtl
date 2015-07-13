@@ -29,7 +29,7 @@ ENTITY OutputDevice IS
   ready: PROCESS (enab)
   BEGIN
     rdy <= '0';
-    IF enab'EVENT AND enab = '0' THEN
+    IF enab'EVENT AND enab = '1' THEN
       rdy <= '1';
     END IF;
   END PROCESS ready;
