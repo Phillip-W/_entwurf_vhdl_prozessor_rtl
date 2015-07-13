@@ -1,4 +1,4 @@
--- FLo Maurer
+
 use work.def_package.all;
 entity reg is -- variable Datenwortbreite (Grundlage: Patrick Ulrich) 
 	generic (N: natural);
@@ -71,4 +71,3 @@ begin
 
 	end process;
 end RTL2;
-
